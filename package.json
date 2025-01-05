@@ -1,0 +1,19 @@
+{
+  "name": "vrchat-osc-motd",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npx tsx src/main.ts"
+  },
+  "devDependencies": {
+    "async": "^3.2.6",
+    "dgram": "^1.0.1",
+    "osc-js": "^2.4.1",
+    "prettier": "^3.3.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/node": "^22.10.5"
+  }
+}
