@@ -15,5 +15,7 @@ export default class VrcOscClient {
         const message = new OSC.Message(VRC_CHATBOX_INPUT, text, true, false)
         const binary = message.pack()
         this.socket.send(new Buffer(binary), 0, binary.byteLength, 9000, 'localhost')
+
+        console.log(`VRC_CHATBOX_INPUT <- '${text}'`)
     }
 }

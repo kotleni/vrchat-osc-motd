@@ -39,6 +39,5 @@ export default class PCStatsPlugin implements PluginBase {
         const output = `CPU: ${cpuUsage}% | RAM: ${ramUsedGb}GB/${ramTotalGb}GB`;
 
         client.sendInputToChatbox(output);
-        console.log(output);
     }
 }
