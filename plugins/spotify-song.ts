@@ -35,7 +35,10 @@ export default class SpotifySongPlugin implements PluginBase {
 
   }
 
-  async onUpdate(_client: VrcOscClient): Promise<string | undefined> {
-    return `(Spotify) ${await this.getCurrentSong()}`;
+  async onUpdate(client: VrcOscClient): Promise<string | undefined> {
+    if(!client.getIsAfk()) {
+      return `(Spotify) ${await this.getCurrentSong()}`;
+    }
+    return undefined;
   }
 }
