@@ -1,4 +1,3 @@
 export default {
-    updateDelay: 5000,
-    iterationsPerPlugin: 5
+    updateDelay: 1500
 };

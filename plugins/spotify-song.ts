@@ -35,8 +35,7 @@ export default class SpotifySongPlugin implements PluginBase {
 
   }
 
-  async onUpdate(client: VrcOscClient) {
-    const currentSong = await this.getCurrentSong();
-    client.sendInputToChatbox(`(Spotify) ${currentSong}`);
+  async onUpdate(_client: VrcOscClient): Promise<string | undefined> {
+    return `(Spotify) ${await this.getCurrentSong()}`;
   }
 }

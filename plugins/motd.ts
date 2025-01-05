@@ -5,7 +5,7 @@ export default class MotdPlugin implements PluginBase {
   name: string = 'Motd';
   description: string = 'Displays message of the day.';
 
-  private message: string = 'github.com/kotleni/vrchat-osc-motd';
+  private message: string = 'Hello from vrchat-osc-motd!';
 
   onLoad() {
 
@@ -15,7 +15,7 @@ export default class MotdPlugin implements PluginBase {
 
   }
 
-  onUpdate(client: VrcOscClient) {
-      client.sendInputToChatbox(this.message)
+  async onUpdate(_client: VrcOscClient): Promise<string | undefined> {
+    return this.message;
   }
 }
