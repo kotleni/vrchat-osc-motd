@@ -21,14 +21,20 @@ export default class SpotifySongPlugin implements PluginBase {
 
       return `${title} : ${artist}`;
     } catch (error) {
-      return `Error fetching song data: ${error}`;
+      return undefined; //`Error fetching song data: ${error}`;
     }
   }
 
+  private async initDbus(): Promise<void> {
+    try {
+      this.bus = dbus.sessionBus();
+      this.player = await this.bus.getProxyObject('org.mpris.MediaPlayer2.spotify', '/org/mpris/MediaPlayer2');
+      this.metadataInterface = this.player!!.getInterface('org.freedesktop.DBus.Properties');
+    } catch (error) { }
+  }
+
   async onLoad() {
-    this.bus = dbus.sessionBus();
-    this.player = await this.bus.getProxyObject('org.mpris.MediaPlayer2.spotify', '/org/mpris/MediaPlayer2');
-    this.metadataInterface = this.player!!.getInterface('org.freedesktop.DBus.Properties');
+    this.initDbus();
   }
 
   async onUnload() {
@@ -36,8 +42,14 @@ export default class SpotifySongPlugin implements PluginBase {
   }
 
   async onUpdate(client: VrcOscClient): Promise<string | undefined> {
-    if(!client.getIsAfk()) {
-      return `(Spotify) ${await this.getCurrentSong()}`;
+    if(!this.player) { // Try to reconnect to player
+      await this.initDbus();
+      return undefined;
+    }
+
+    const currentSongString = await this.getCurrentSong();
+    if(!client.getIsAfk() && currentSongString) {
+      return `(Spotify) ${currentSongString}`;
     }
     return undefined;
   }
