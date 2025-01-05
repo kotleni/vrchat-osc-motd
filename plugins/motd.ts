@@ -5,7 +5,7 @@ export default class MotdPlugin implements PluginBase {
   name: string = 'Motd';
   description: string = 'Displays message of the day.';
 
-  private message: string = 'I USE ARCH BTW';
+  private message: string = 'github.com/kotleni/vrchat-osc-motd';
 
   onLoad() {
 
